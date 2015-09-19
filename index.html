@@ -1,1 +1,44 @@
-test
+<html>
+  <head>
+    <title>Topflight</title>
+    <meta charset="UTF-8">
+    <base target="_blank">
+    <link href="http://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
+    <link href="iata.css" rel="stylesheet" type="text/css">
+    <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="airlines.json"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      var qs = {
+        "apikey": "7J4zdDj82DKOGsU8C0U1h4mGaeLmrwrE",
+        "origin": "BOS",
+        "destination": "SDF",
+        "departure_date": "2016-01-25"
+      };
+
+      $.getJSON("https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search",
+        qs,
+        function(data) {
+          $.each(data.results, function(i, result){
+            var fltstr = "";
+            console.log(result);
+            $.each(result.itineraries[0].outbound.flights, function(j, flight) {
+              fltstr += flight.marketing_airline + " " + flight.flight_number + ","
+            });
+            console.log(result.fare.total_price + " for " + fltstr);
+          });
+        }
+      );
+    </script>
+  </head>
+  <body>
+    <p style="font-family:Montserrat;">Virgin America</p>
+    <div class="logo _wn"></div>
+    <div class="logo _vx"></div>
+    <div class="logo _dl"></div>
+    <div class="logo _aa"></div>
+    <div class="logo _ba"></div>
+    <div class="logo _ey"></div>
+    <div class="logo _ek"></div>
+  </body>
+</html>
