@@ -1,11 +1,15 @@
 .logo {
 	display: inline-block;
 	background: url('iata.png') no-repeat;
+	zoom: 0.5;
+  -moz-transform: scale(0.5);
+  -moz-transform-origin: 0 0;
 	overflow: hidden;
 	text-indent: -9999px;
 	text-align: left;
 	width: 70px;
 	height: 70px;
+	vertical-align: middle;
 }
 
 ._3m { background-position: -1px -0px; }
@@ -206,10 +210,11 @@
 ._ws { background-position: -1px -13845px; }
 ._wt { background-position: -1px -13916px; }
 ._ww { background-position: -1px -13987px; }
-._wy { background-position: -1px -14058px; }
-._xq { background-position: -1px -14129px; }
-._zb { background-position: -1px -14200px; }
-._zh { background-position: -1px -14271px; }
-._zi { background-position: -1px -14342px; }
-._zk { background-position: -1px -14413px; }
-._hw { background-position: -1px -14484px; width: 68px; height: 66px; }
+._wx { background-position: -1px -14058px; }
+._wy { background-position: -1px -14129px; }
+._xq { background-position: -1px -14200px; }
+._zb { background-position: -1px -14271px; }
+._zh { background-position: -1px -14342px; }
+._zi { background-position: -1px -14413px; }
+._zk { background-position: -1px -14484px; }
+._hw { background-position: -1px -14555px; width: 68px; height: 66px; }

@@ -7,38 +7,187 @@
     <link href="iata.css" rel="stylesheet" type="text/css">
     <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="airlines.json"></script> -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <style type="text/css">
+      body {
+        font: 14pt 'Montserrat';
+      }
+      h2 {
+        font: 26pt 'Montserrat' normal;
+      }
+      input {
+        font: 14pt 'Montserrat';
+      }
+      #results {
+        font: 14pt 'Montserrat';
+        font-weight: normal;
+        color: #333;
+      }
+      .result {
+        display: table;
+        background: #DEF;
+        /*border: 1px solid #333;*/
+        border-radius: 8px;
+        color: #333;
+        text-decoration: none;
+        min-width: 290px;
+        width: 99%;
+        height: auto;
+        margin: 7px;
+        padding: 5px;
+      }
+      .fare {
+        font: 14pt 'Montserrat' bold;
+        color: #383;
+        padding: 10px;
+        width: 60px;
+        text-align: center;
+        border-right: 1px solid gray;
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .flight_details {
+        padding-left: 15px;
+      }
+      .flight_detail {
+        padding: 3px;
+      }
+      .flight_data {
+        font: 14pt 'Montserrat';
+        font-weight: normal;
+        color: #333;
+        padding-left: 15px;
+        font-size: 11pt;
+      }
+    </style>
     <script type="text/javascript">
-      var qs = {
-        "apikey": "7J4zdDj82DKOGsU8C0U1h4mGaeLmrwrE",
-        "origin": "BOS",
-        "destination": "SDF",
-        "departure_date": "2016-01-25"
-      };
+      var AMADEUS_API_KEY = "7J4zdDj82DKOGsU8C0U1h4mGaeLmrwrE";
 
-      $.getJSON("https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search",
-        qs,
-        function(data) {
-          $.each(data.results, function(i, result){
-            var fltstr = "";
-            console.log(result);
-            $.each(result.itineraries[0].outbound.flights, function(j, flight) {
-              fltstr += flight.marketing_airline + " " + flight.flight_number + ","
+      $(function() {
+        $("#dep").datepicker({
+          defaultDate: "+2w",
+          dateFormat: "D, MM d",
+          altField: "#depFmt",
+          altFormat: "yy-mm-dd",
+          showAnim: "slideDown",
+          minDate: -1,
+          maxDate: "+11M",
+          onClose: function(selectedDate) {
+            $("#ret").datepicker("option", "minDate", selectedDate);
+          },
+          onSelect: function(d, i) {
+            if(d !== i.lastVal){
+              amadeusQuery();
+            }
+          }
+        });
+        $("#ret").datepicker({
+          defaultDate: "+3w",
+          dateFormat: "D, MM d",
+          altField: "#retFmt",
+          altFormat: "yy-mm-dd",
+          showAnim: "slideDown",
+          minDate: -1,
+          maxDate: "+11M",
+          onClose: function(selectedDate) {
+            $("#dep").datepicker("option", "maxDate", selectedDate);
+          },
+          onSelect: function(d, i) {
+            if(d !== i.lastVal){
+              amadeusQuery();
+            }
+          }
+        })
+
+        amadeusQuery();
+      });
+
+      function amadeusQuery() {
+        var qs = {
+          "apikey": AMADEUS_API_KEY,
+          "origin": $("#ori").val(),
+          "destination": $("#dst").val(),
+          "departure_date": $('#depFmt').val(),
+        };
+
+        $("#loading").show();
+        $.getJSON("https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search",
+          qs,
+          function(data) {
+            var resultsDiv = $("#results");
+            resultsDiv.empty();
+            $("#loading").hide();
+            $.each(data.results, function(i, result){
+              console.log(result);
+
+              var resultRow = $(document.createElement('a'))
+                .addClass('result')
+                //.attr('href', airline.url)
+                .appendTo(resultsDiv);
+
+              $(document.createElement('div'))
+                .addClass('fare')
+                .text("$"+Math.ceil(result.fare.total_price))
+                .appendTo(resultRow);
+
+              var flightDetails = $(document.createElement('div'))
+                .addClass('flight_details')
+                //.attr('href', airline.url)
+                .appendTo(resultRow);
+
+              $.each(result.itineraries[0].outbound.flights, function(j, flight) {
+                var flightDetail = $(document.createElement('div'))
+                  .addClass('flight_detail')
+                  //.attr('href', airline.url)
+                  .appendTo(flightDetails);
+
+                $(document.createElement('div'))
+                  .addClass('logo')
+                  .addClass('_' + flight.marketing_airline.toLowerCase())
+                  .appendTo(flightDetail);
+
+                var flightData = $(document.createElement('span'))
+                  .addClass('flight_data')
+                  .text(flight.marketing_airline + " " + flight.flight_number
+                    + ": " + flight.origin.airport + "-" + flight.destination.airport)
+                  .appendTo(flightDetail);
+
+                if (flight.operating_airline != flight.marketing_airline) {
+                    flightData.append(" (operated by " + flight.operating_airline + ")");
+                }
+              });
             });
-            console.log(result.fare.total_price + " for " + fltstr);
-          });
-        }
-      );
+          }
+        );
+      }
     </script>
   </head>
   <body>
-    <p style="font-family:Montserrat;">Virgin America</p>
-    <div class="logo _wn"></div>
-    <div class="logo _vx"></div>
-    <div class="logo _dl"></div>
-    <div class="logo _aa"></div>
-    <div class="logo _ba"></div>
-    <div class="logo _ey"></div>
-    <div class="logo _ek"></div>
+    <h2>Topflight</h2>
+    <table>
+      <tr>
+        <td>
+          <input id="ori" autocomplete="off" placeholder="Origin" value="BOS" />
+        </td>
+        <td>
+          <input id="dst" autocomplete="off" placeholder="Destination" value="SFO" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input id="dep" autocomplete="off" placeholder="Departing" />
+          <input id="depFmt" type="hidden">
+        </td>
+        <td>
+          <input id="ret" autocomplete="off" placeholder="Returning" />
+          <input id="retFmt" type="hidden">
+        </td>
+      </tr>
+    </table>
+    <span id="loading">Loading results...</span>
+    <div id="results">
+    </div>
   </body>
 </html>
