@@ -17,8 +17,8 @@
       h2 {
         font: 26pt 'Montserrat' normal;
       }
-      input {
-        font: 14pt 'Lato';
+      input, label {
+        font: 12pt 'Lato';
       }
       #results {
         font: 14pt 'Montserrat';
@@ -147,12 +147,13 @@
           altFormat: "yy-mm-dd",
           showAnim: "slideDown",
           minDate: -1,
-          maxDate: "+11M",
+          maxDate: "+10M 2W",
           onClose: function(selectedDate) {
             $("#dep").datepicker("option", "maxDate", selectedDate);
           },
           onSelect: function(d, i) {
             if (d !== i.lastVal){
+              $("#rt").prop("checked", true);
               amadeusQuery();
             }
           }
@@ -169,7 +170,6 @@
           console.log("HASH SUCCESS", qh);
           $("#ori").val(qh[1]);
           $("#dst").val(qh[2]);
-          $("#ret").datepicker("setDate", newRet);
           var today = new Date();
           var newDep = new Date(qh[3], qh[4]-1, qh[5]);
           if (newDep < today)
@@ -178,10 +178,20 @@
             $("#dep").datepicker("setDate", newDep);
             $("#ret").datepicker("option", "minDate", newDep);
           }
-          var newRet = (qh[8] && new Date(qh[6], qh[7]-1, qh[8]) > newDep) ?
-            new Date(qh[6], qh[7]-1, qh[8]) : "";
+          var newRet = new Date(qh[6], qh[7]-1, qh[8]);
+          if (newRet < newDep){
+            newRet = "";
+          } else {
+            $("#rt").prop("checked", true);
+          }
+          $("#ret").datepicker("setDate", newRet);
           $("#dep").datepicker("option", "maxDate", newRet);
         }
+
+        $("#ow").click(function() {
+          $("#ret").datepicker("setDate", "");
+          amadeusQuery();
+        });
 
         amadeusQuery();
         // window.onhashchange = amadeusQuery;
@@ -356,6 +366,8 @@
   </head>
   <body>
     <h2>Topflight</h2>
+    <label><input id="rt" type="radio" name="tt" value="rt">Round trip</label>
+    <label><input id="ow" type="radio" name="tt" value="ow" checked>One way</label>
     <table>
       <tr>
         <td>
