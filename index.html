@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <link href="http://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
     <link href="iata.css" rel="stylesheet" type="text/css">
-    <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
     <script type="text/javascript" src="airlines.json"></script>
     <script type="text/javascript" src="airports.json"></script>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -26,7 +25,6 @@
       }
       .result {
         background: #DEF;
-        /*border: 1px solid #333;*/
         color: #333;
         cursor: pointer;
       }
@@ -332,11 +330,6 @@
           }
         });
 
-            // $(document.createElement('div'))
-            //   .addClass('flight_data')
-            //   .text("Fare class: " + flight.booking_info.booking_code)
-            //   .appendTo(flightSubDetail);
-        // }
         var creditsTo = iataLookup(firstFlight.marketing_airline).credits;
         var fareClass = firstFlight.booking_info.booking_code;
         var creditInfo = $(document.createElement('td'))
