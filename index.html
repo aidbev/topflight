@@ -18,6 +18,9 @@
       h2 {
         font: 26pt 'Montserrat' normal;
       }
+      .desc {
+        font: 12pt 'Lato' normal;
+      }
       input, label {
         font: 12pt 'Lato';
       }
@@ -39,15 +42,14 @@
         vertical-align: middle;
       }
       .flight_details {
-        min-width: 400px;
         padding: 10px 15px;
       }
       .flight_data, .credit_info {
         padding: 10px;
         font: 11pt 'Lato';
         font-weight: normal;
+        width: 400px;
         color: #333;
-        padding: 6px 10px;
       }
       #loading {
         position: absolute;
@@ -436,7 +438,9 @@
     </script>
   </head>
   <body>
-    <h2>Topflight</h2>
+    <h1>Topflight ✈</h1>
+    <p class="desc">Topflight helps you find the best flights every time.
+      Search with fare classes and earning amounts exposed.</p>
     <label><input id="rt" type="radio" name="tt" value="rt">Round trip</label>
     <label><input id="ow" type="radio" name="tt" value="ow" checked>One way</label>
     <table>

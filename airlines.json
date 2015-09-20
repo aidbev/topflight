@@ -255,6 +255,7 @@ var airlines = [
     "name": "United Airlines",
     "alliance": "sa",
     "ffp": "ua",
+    "credits": ["ua"],
     "url": "http://www.united.com"
   },
 
@@ -813,6 +814,7 @@ var airlines = [
     "icao": "jbu",
     "name": "JetBlue",
     "ffp": "TrueBlue",
+    "credits": ["b6"],
     "url": "http://www.jetblue.com"
   },
   {
@@ -912,6 +914,7 @@ var airlines = [
     "icao": "vrd",
     "name": "Virgin America",
     "ffp": "vx",
+    "credits": ["vx"],
     "url": "http://www.virginamerica.com"
   },
   {
@@ -1100,6 +1103,12 @@ var ffps = {
     "name": "TrueBlue",
     "currency": "points",
     "value": 0.012,
+    "earn": {
+      "b6": {
+        "revenue": true,
+        "mpd": 3
+      }
+    },
     "redeem": ["ha"],
     "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
   },
@@ -1206,6 +1215,12 @@ var ffps = {
     "name": "Elevate",
     "currency": "points",
     "value": 0.019,
+    "earn": {
+      "vx": {
+        "revenue": true,
+        "mpd": 5
+      },
+    },
     "redeem": ["vs", "va", "ek", "ha", "sq"],
     "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
   }
