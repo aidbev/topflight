@@ -1,0 +1,1024 @@
+var airlines = [
+  // STAR ALLIANCE
+  {
+    "iata": "jp",
+    "icao": "adr",
+    "name": "Adria Airways",
+    "alliance": "sa",
+    "ffp": "mm",
+    "url": "http://www.adria.si"
+  },
+  {
+    "iata": "a3",
+    "icao": "aee",
+    "name": "Aegean Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Miles+Bonus",
+      "currency": "miles"
+    },
+    "url": "http://www.aegeanair.com"
+  },
+  {
+    "iata": "ac",
+    "icao": "aca",
+    "name": "Air Canada",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Aeroplan",
+      "currency": "miles"
+    },
+    "url": "http://www.aircanada.com"
+  },
+  {
+    "iata": "ca",
+    "icao": "cca",
+    "name": "Air China",
+    "alliance": "sa",
+    "ffp": {
+      "name": "PhoenixMiles",
+      "currency": "miles"
+    },
+    "url": "http://www.airchina.com"
+  },
+  {
+    "iata": "ai",
+    "icao": "aic",
+    "name": "Air India",
+    "alliance": "sa",
+    "url": "http://www.airindia.com"
+  },
+  {
+    "iata": "nz",
+    "icao": "anz",
+    "name": "Air New Zealand",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Airpoints",
+      "currency": "Dollars"
+    },
+    "url": "http://www.airnewzealand.com"
+  },
+  {
+    "iata": "nh",
+    "icao": "ana",
+    "name": "All Nippon Airways",
+    "alliance": "sa",
+    "url": "http://www.ana.co.jp"
+  },
+  {
+    "iata": "oz",
+    "icao": "aar",
+    "name": "Asiana Airlines",
+    "alliance": "sa",
+    "url": "http://www.flyasiana.com"
+  },
+  {
+    "iata": "os",
+    "icao": "aua",
+    "name": "Austrian Airlines",
+    "alliance": "sa",
+    "url": "http://www.austrian.com"
+  },
+  {
+    "iata": "av",
+    "icao": "tai",
+    "name": "Avianca",
+    "alliance": "sa",
+    "ffp": {
+      "name": "LifeMiles",
+      "currency": "LifeMiles"
+    },
+    "url": "http://www.avianca.com"
+  },
+  {
+    "iata": "sn",
+    "icao": "bel",
+    "name": "Brussels Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Miles & More",
+      "currency": "miles"
+    },
+    "url": "http://www.brusselsairlines.com"
+  },
+  {
+    "iata": "cm",
+    "icao": "cmp",
+    "name": "Copa Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "MileagePlus",
+      "currency": "miles"
+    },
+    "url": "http://www.copa.com"
+  },
+  {
+    "iata": "ou",
+    "icao": "ctn",
+    "name": "Croatia Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Miles & More",
+      "currency": "miles"
+    },
+    "url": "http://www.croatiaairlines.hr"
+  },
+  {
+    "iata": "ms",
+    "icao": "msr",
+    "name": "EgyptAir",
+    "alliance": "sa",
+    "ffp": {
+      "name": "EgyptAir Plus",
+      "currency": "miles"
+    },
+    "url": "http://www.egyptair.com"
+  },
+  {
+    "iata": "et",
+    "icao": "eth",
+    "name": "Ethiopian Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "ShebaMiles",
+      "currency": "miles"
+    },
+    "url": "http://www.ethiopianairlines.com"
+  },
+  {
+    "iata": "br",
+    "icao": "eva",
+    "name": "EVA Air",
+    "alliance": "sa",
+    "url": "http://www.evaair.com"
+  },
+  {
+    "iata": "lo",
+    "icao": "lot",
+    "name": "LOT Polish Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Miles & More",
+      "currency": "miles"
+    },
+    "url": "http://www.lot.com"
+  },
+  {
+    "iata": "lh",
+    "icao": "dlh",
+    "name": "Lufthansa",
+    "alliance": "sa",
+    "ffp": "lh",
+    "url": "http://www.lufthansa.com"
+  },
+  {
+    "iata": "sk",
+    "icao": "sas",
+    "name": "Scandinavian Airlines",
+    "alliance": "sa",
+    "ffp": "sk",
+    "url": "http://www.flysas.com"
+  },
+  {
+    "iata": "zh",
+    "icao": "csz",
+    "name": "Shenzhen Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "PhoenixMiles",
+      "currency": "miles"
+    },
+    "url": "http://global.shenzhenair.com"
+  },
+  {
+    "iata": "sq",
+    "icao": "sia",
+    "name": "Singapore Airlines",
+    "alliance": "sa",
+    "url": "http://www.singaporeair.com"
+  },
+  {
+    "iata": "sa",
+    "icao": "saa",
+    "name": "South African Airways",
+    "alliance": "sa",
+    "url": "http://www.flysaa.com"
+  },
+  {
+    "iata": "lx",
+    "icao": "swr",
+    "name": "Swiss Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Miles & More",
+      "currency": "miles"
+    },
+    "url": "http://www.swiss.com"
+  },
+  {
+    "iata": "tp",
+    "icao": "tap",
+    "name": "TAP Portugal",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Victoria",
+      "currency": "miles"
+    },
+    "url": "http://www.flytap.com"
+  },
+  {
+    "iata": "tg",
+    "icao": "tha",
+    "name": "Thai Airways",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Royal Orchid Plus",
+      "currency": "miles"
+    },
+    "url": "http://www.thaiairways.com"
+  },
+  {
+    "iata": "tk",
+    "icao": "thy",
+    "name": "Turkish Airlines",
+    "alliance": "sa",
+    "ffp": {
+      "name": "Miles & Smiles",
+      "currency": ""
+    },
+    "url": "http://www.turkishairlines.com"
+  },
+  {
+    "iata": "ua",
+    "icao": "ual",
+    "name": "United Airlines",
+    "alliance": "sa",
+    "ffp": "ua",
+    "url": "http://www.united.com"
+  },
+
+
+
+  // SKYTEAM
+  {
+    "iata": "su",
+    "icao": "afl",
+    "name": "Aeroflot",
+    "alliance": "st",
+    "ffp": {
+      "name": "Aeroflot Bonus",
+      "currency": "miles"
+    },
+    "url": "http://www.aeroflot.com"
+  },
+  {
+    "iata": "ar",
+    "icao": "arg",
+    "name": "Aerolíneas Argentinas",
+    "alliance": "st",
+    "ffp": "Aerolíneas Plus",
+    "url": "http://www.aerolineas.com"
+  },
+  {
+    "iata": "am",
+    "icao": "amx",
+    "name": "Aeroméxico",
+    "alliance": "st",
+    "ffp": "Club Premier",
+    "url": "http://www.aeromexico.com"
+  },
+  {
+    "iata": "ux",
+    "icao": "aea",
+    "name": "Air Europa",
+    "alliance": "st",
+    "ffp": {
+      "name": "Flying Blue",
+      "currency": "miles"
+    },
+    "url": "http://www.aireuropa.com"
+  },
+  {
+    "iata": "af",
+    "icao": "afr",
+    "name": "Air France",
+    "alliance": "st",
+    "url": "http://www.airfrance.com"
+  },
+  {
+    "iata": "az",
+    "icao": "aza",
+    "name": "Alitalia",
+    "alliance": "st",
+    "ffp": {
+      "name": "Millemiglia",
+      "currency": "miles"
+    },
+    "url": "http://www.alitalia.com"
+  },
+  {
+    "iata": "ci",
+    "icao": "cal",
+    "name": "China Airlines",
+    "alliance": "st",
+    "ffp": {
+      "name": "Dynasty Flyer",
+      "currency": "miles"
+    },
+    "url": "http://www.china-airlines.com"
+  },
+  {
+    "iata": "mu",
+    "icao": "ces",
+    "name": "China Eastern",
+    "alliance": "st",
+    "ffp": {
+      "name": "Eastern Miles",
+      "currency": "miles"
+    },
+    "url": "http://global.ceair.com"
+  },
+  {
+    "iata": "cz",
+    "icao": "csn",
+    "name": "China Southern",
+    "alliance": "st",
+    "ffp": {
+      "name": "Sky Pearl Club",
+      "currency": "miles"
+    },
+    "url": "http://www.csair.com/en"
+  },
+  {
+    "iata": "ok",
+    "icao": "csa",
+    "name": "Czech Airlines",
+    "alliance": "st",
+    "ffp": {
+      "name": "OK Plus",
+      "currency": "Miles"
+    },
+    "url": "http://www.czechairlines.com"
+  },
+  {
+    "iata": "dl",
+    "icao": "dal",
+    "name": "Delta Air Lines",
+    "alliance": "st",
+    "ffp": "dl",
+    "url": "http://www.delta.com"
+  },
+  {
+    "iata": "ga",
+    "icao": "gia",
+    "name": "Garuda Indonesia",
+    "alliance": "st",
+    "ffp": {
+      "name": "GarudaMiles",
+      "currency": "miles"
+    },
+    "url": "http://www.garuda-indonesia.com"
+  },
+  {
+    "iata": "kq",
+    "icao": "kqa",
+    "name": "Kenya Airways",
+    "alliance": "st",
+    "url": "http://www.kenya-airways.com"
+  },
+  {
+    "iata": "kl",
+    "icao": "klm",
+    "name": "KLM",
+    "alliance": "st",
+    "ffp": {
+      "name": "Flying Blue",
+      "currency": "miles"
+    },
+    "url": "http://www.klm.com"
+  },
+  {
+    "iata": "ke",
+    "icao": "kal",
+    "name": "Korean Air",
+    "alliance": "st",
+    "url": "http://www.koreanair.com"
+  },
+  {
+    "iata": "me",
+    "icao": "mea",
+    "name": "Middle East Airlines",
+    "alliance": "st",
+    "ffp": {
+      "name": "Cedar Miles",
+      "currency": "Cedar Miles"
+    },
+    "url": "http://www.mea.com.lb"
+  },
+  {
+    "iata": "sv",
+    "icao": "sva",
+    "name": "Saudia",
+    "alliance": "st",
+    "ffp": {
+      "name": "Al-Fursan",
+      "currency": "Cedar Miles"
+    },
+    "url": "http://www.saudiairlines.com"
+  },
+  {
+    "iata": "ro",
+    "icao": "rot",
+    "name": "TAROM",
+    "alliance": "st",
+    "url": "http://www.tarom.ro/en"
+  },
+  {
+    "iata": "vn",
+    "icao": "hvn",
+    "name": "Vietnam Airlines",
+    "alliance": "st",
+    "ffp": {
+      "name": "Golden Lotus Plus",
+      "currency": "miles"
+    },
+    "url": "http://www.vietnamairlines.com"
+  },
+  {
+    "iata": "mf",
+    "icao": "cxa",
+    "name": "Xiamen Airlines",
+    "alliance": "st",
+    "ffp": {
+      "name": "Egret Club",
+      "currency": "miles"
+    },
+    "url": "http://www.xiamenair.com/cn/en"
+  },
+
+
+
+  // ONEWORLD
+  {
+    "iata": "ab",
+    "icao": "ber",
+    "name": "Air Berlin",
+    "alliance": "ow",
+    "url": "http://www.airberlin.com"
+  },
+  {
+    "iata": "aa",
+    "icao": "aal",
+    "name": "American Airlines",
+    "alliance": "ow",
+    "ffp": "aa",
+    "url": "http://www.aa.com"
+  },
+  {
+    "iata": "ba",
+    "icao": "baw",
+    "name": "British Airways",
+    "alliance": "ow",
+    "ffp": {
+      "name": "Executive Club",
+      "currency": "Avios"
+    },
+    "url": "http://www.ba.com"
+  },
+  {
+    "iata": "cx",
+    "icao": "cpa",
+    "name": "Cathay Pacific",
+    "alliance": "ow",
+    "ffp": {
+      "name": "The Marco Polo Club",
+      "currency": "miles"
+    },
+    "url": "http://www.cathaypacific.com"
+  },
+  {
+    "iata": "ay",
+    "icao": "fin",
+    "name": "Finnair",
+    "alliance": "ow",
+    "url": "http://www.finnair.com"
+  },
+  {
+    "iata": "ib",
+    "icao": "ibe",
+    "name": "Iberia",
+    "alliance": "ow",
+    "ffp": {
+      "name": "Iberia Plus",
+      "currency": "points"
+    },
+    "url": "http://www.iberia.com"
+  },
+  {
+    "iata": "jl",
+    "icao": "jal",
+    "name": "Japan Airlines",
+    "alliance": "ow",
+    "ffp": {
+      "name": "JAL Mileage Bank",
+      "currency": "miles"
+    },
+    "url": "http://www.jal.com"
+  },
+  {
+    "iata": "la",
+    "icao": "lan",
+    "name": "LAN Airlines",
+    "alliance": "ow",
+    "ffp": {
+      "name": "LANPASS",
+      "currency": "kms"
+    },
+    "url": "http://www.lan.com"
+  },
+  {
+    "iata": "mh",
+    "icao": "mas",
+    "name": "Malaysia Airlines",
+    "alliance": "ow",
+    "url": "http://www.malaysiaairlines.com"
+  },
+  {
+    "iata": "qf",
+    "icao": "qfa",
+    "name": "Qantas",
+    "alliance": "ow",
+    "url": "http://www.qantas.com.au"
+  },
+  {
+    "iata": "qr",
+    "icao": "qtr",
+    "name": "Qatar Airways",
+    "alliance": "ow",
+    "url": "http://www.qatarairways.com"
+  },
+  {
+    "iata": "rj",
+    "icao": "rja",
+    "name": "Royal Jordanian",
+    "alliance": "ow",
+    "ffp": {
+      "name": "Royal Plus",
+      "currency": "miles"
+    },
+    "url": "http://www.rj.com"
+  },
+  {
+    "iata": "s7",
+    "icao": "sbi",
+    "name": "S7 Airlines",
+    "alliance": "ow",
+    "ffp": {
+      "name": "S7 Priority",
+      "currency": "miles"
+    },
+    "url": "http://www.s7.ru"
+  },
+  {
+    "iata": "ul",
+    "icao": "alk",
+    "name": "SriLankan Airways",
+    "alliance": "ow",
+    "ffp": {
+      "name": "FlySmiLes",
+      "currency": "miles"
+    },
+    "url": "http://www.srilankan.com"
+  },
+  {
+    "iata": "jj",
+    "icao": "tam",
+    "name": "TAM Airlines",
+    "alliance": "ow",
+    "ffp": {
+      "name": "TAM Fidelidade",
+      "currency": "points"
+    },
+    "url": "http://www.tam.com.br"
+  },
+  {
+    "iata": "us",
+    "icao": "awe",
+    "name": "US Airways",
+    "alliance": "ow",
+    "ffp": {
+      "name": "Dividend Miles",
+      "currency": "miles"
+    },
+    "url": "http://www.usairways.com"
+  },
+
+
+
+  // NO ALLIANCE
+  {
+    "iata": "ei",
+    "icao": "ein",
+    "name": "Aer Lingus",
+    "ffp": "Gold Circle Club",
+    "url": "http://www.aerlingus.com"
+  },
+  {
+    "iata": "gl",
+    "icao": "grl",
+    "name": "Air Greenland",
+  },
+  {
+    "iata": "tn",
+    "icao": "tht",
+    "name": "Air Tahiti Nui",
+    "url": "https://www.airtahitinui.com/"
+  },
+  {
+    "iata": "ts",
+    "icao": "tsc",
+    "name": "Air Transat",
+    "url": "http://www.airtransat.com"
+  },
+  {
+    "iata": "ak",
+    "icao": "axm",
+    "name": "AirAsia"
+  },
+  {
+    "iata": "as",
+    "icao": "asa",
+    "name": "Alaska Airlines",
+    "ffp": "as",
+    "url": "http://www.alaskaair.com"
+  },
+  {
+    "iata": "9k",
+    "icao": "kap",
+    "name": "Cape Air",
+    "url": "https://www.capeair.com"
+  },
+  {
+    "iata": "u2",
+    "icao": "ezy",
+    "name": "EasyJet",
+    "url": "http://www.easyjet.com"
+  },
+  {
+    "iata": "ly",
+    "icao": "ely",
+    "name": "El Al",
+    "ffp": {
+      "name": "Matmid",
+      "currency": "points"
+    },
+    "url": "http://www.elal.co.il"
+  },
+  {
+    "iata": "ek",
+    "icao": "uae",
+    "name": "Emirates",
+    "ffp": "ek",
+    "url": "http://www.emirates.com"
+  },
+  {
+    "iata": "ey",
+    "icao": "etd",
+    "name": "Etihad",
+    "ffp": {
+      "name": "Guest",
+      "currency": "miles"
+    },
+    "url": "http://www.etihad.com"
+  },
+  {
+    "iata": "fj",
+    "icao": "fji",
+    "name": "Fiji Airways",
+    "url": "http://www.fijiairways.com"
+  },
+  {
+    "iata": "fy",
+    "icao": "ffm",
+    "name": "Firefly"
+  },
+  {
+    "iata": "be",
+    "icao": "bee",
+    "name": "Flybe",
+    "ffp": "Rewards4all",
+    "url": "http://www.flybe.com"
+  },
+  {
+    "iata": "fz",
+    "icao": "fdb",
+    "name": "Flydubai"
+  },
+  {
+    "iata": "f9",
+    "icao": "fft",
+    "name": "Frontier Airlines",
+    "ffp": {
+      "name": "EarlyReturns",
+      "currency": "miles"
+    },
+    "url": "http://www.flyfrontier.com"
+  },
+  {
+    "iata": "4u",
+    "icao": "gwi",
+    "name": "Germanwings",
+  },
+  {
+    "iata": "g8",
+    "icao": "gow",
+    "name": "GoAir",
+    "ffp": {
+      "name": "GoClub",
+      "currency": "miles"
+    },
+    "url": "http://www.goair.in"
+  },
+  {
+    "iata": "g3",
+    "icao": "glo",
+    "name": "GOL",
+    "ffp": {
+      "name": "Smiles",
+      "currency": "miles"
+    },
+    "url": "http://www.voegol.com.br/en-us"
+  },
+  {
+    "iata": "gf",
+    "icao": "gfa",
+    "name": "Gulf Air",
+    "ffp": "Falcon Flyer",
+    "url": "http://www.gulfair.com"
+  },
+  {
+    "iata": "hu",
+    "icao": "chh",
+    "name": "Hainan Airlines",
+    "ffp": {
+      "name": "Fortune Wings Club",
+      "currency": "miles"
+    },
+    "url": "http://www.hainanairlines.com"
+  },
+  {
+    "iata": "ha",
+    "icao": "hal",
+    "name": "Hawaiian Airlines",
+    "ffp": "HawaiianMiles",
+    "url": "http://www.hawaiianairlines.com"
+  },
+  {
+    "iata": "fi",
+    "icao": "ice",
+    "name": "Icelandair",
+    "ffp": {
+      "name": "Saga Club",
+      "currency": "Saga Points"
+    },
+    "url": "http://www.icelandair.com"
+  },
+  {
+    "iata": "9w",
+    "icao": "jai",
+    "name": "Jet Airways",
+    "url": "http://www.jetairways.com"
+  },
+  {
+    "iata": "b6",
+    "icao": "jbu",
+    "name": "JetBlue",
+    "ffp": "TrueBlue",
+    "url": "http://www.jetblue.com"
+  },
+  {
+    "iata": "jq",
+    "icao": "jst",
+    "name": "Jetstar",
+    "url": "http://www.jetstar.com"
+  },
+  {
+    "iata": "zb",
+    "icao": "mon",
+    "name": "Monarch Airlines",
+    "ffp": {
+      "name": "Vantage Club",
+      "currency": "miles"
+    },
+    "url": "http://www.monarch.co.uk"
+  },
+  {
+    "iata": "dy",
+    "icao": "nax",
+    "name": "Norwegian Air Shuttle",
+    "ffp": {
+      "name": "Norwegian Reward",
+      "currency": "CashPoints"
+    },
+    "url": "http://www.norwegian.com"
+  },
+  {
+    "iata": "ks",
+    "icao": "pen",
+    "name": "PenAir",
+    "url": "http://www.penair.com"
+  },
+  {
+    "iata": "pd",
+    "icao": "poe",
+    "name": "Porter Airlines",
+    "ffp": {
+      "name": "VIPorter",
+      "currency": "Points"
+    },
+    "url": "http://www.flyporter.com"
+  },
+  {
+    "iata": "fr",
+    "icao": "ryr",
+    "name": "Ryanair",
+    "url": "http://www.ryanair.com"
+  },
+  {
+    "iata": "bb",
+    "icao": "sbs",
+    "name": "Seaborne Airlines",
+    "url": "http://www.seaborneairlines.com"
+  },
+  {
+    "iata": "3m",
+    "icao": "sil",
+    "name": "Silver Airways",
+    "url": "http://www.silverairways.com"
+  },
+  {
+    "iata": "wn",
+    "icao": "swa",
+    "name": "Southwest Airlines",
+    "ffp": {
+      "name": "Rapid Rewards",
+      "currency": "points"
+    },
+    "url": "http://www.southwest.com"
+  },
+  {
+    "iata": "nk",
+    "icao": "nks",
+    "name": "Spirit Airlines",
+    "ffp": "Free Spirit",
+    "url": "http://www.spirit.com"
+  },
+  {
+    "iata": "sy",
+    "icao": "scx",
+    "name": "Sun Country Airlines",
+    "ffp": {
+      "name": "Ufly Rewards Plus",
+      "currency": ""
+    },
+    "url": "http://www.suncountry.com"
+  },
+  {
+    "iata": "mt",
+    "icao": "tcx",
+    "name": "Thomas Cook Airlines",
+  },
+  {
+    "iata": "vx",
+    "icao": "vrd",
+    "name": "Virgin America",
+    "ffp": "vx",
+    "url": "http://www.virginamerica.com"
+  },
+  {
+    "iata": "va",
+    "icao": "voz",
+    "name": "Virgin Australia",
+    "url": "http://www.virginaustralia.com"
+  },
+  {
+    "iata": "vs",
+    "icao": "vir",
+    "name": "Virgin Atlantic",
+    "ffp": {
+      "name": "Flying Club",
+      "currency": "miles"
+    },
+    "url": "http://www.virgin-atlantic.com"
+  },
+  {
+    "iata": "vy",
+    "icao": "vlg",
+    "name": "Vueling",
+    "ffp": {
+      "name": "Punto",
+      "currency": "points"
+    },
+    "url": "http://www.vueling.com"
+  },
+  {
+    "iata": "ws",
+    "icao": "wja",
+    "name": "WestJet",
+    "url": "http://www.westjet.com"
+  },
+  {
+    "iata": "wf",
+    "icao": "wif",
+    "name": "Widerøe",
+    "ffp": {
+      "name": "EuroBonus",
+      "currency": "miles"
+    },
+    "url": "http://www.wideroe.no"
+  },
+  {
+    "iata": "w6",
+    "icao": "wzz",
+    "name": "Wizz Air",
+    "url": "http://www.wizzair.com"
+  },
+  {
+    "iata": "ww",
+    "icao": "wow",
+    "name": "WOW Air",
+    "url": "http://www.wowair.com"
+  },
+];
+
+var ffps = {
+  "aa": {
+    "name": "AAdvantage",
+    "currency": "miles",
+    "redeem": [
+      "ab", "ba", "cx", "ay", "ib", "jl", "la", "mh", "qf", "qr", "rj", "s7", "ul", "jj",
+      "tn", "as", "9k", "ey", "fj", "gf", "ha", "9w", "bb"
+    ],
+    "url": "http://www.aa.com/i18n/AAdvantage/earnMiles/travel/airlines/main.jsp"
+  },
+  "dl": {
+    "name": "SkyMiles",
+    "currency": "miles",
+    "redeem": [
+      "su", "ar", "am", "ux", "af", "az", "ci", "mu", "cz", "ok", "ga", "kq", "kl", "ke", "me", "sv", "ro", "vn", "mf",
+      "as", "g3", "ha", "tn", "vs", "va", "zk"
+    ],
+    "url": "http://www.delta.com/content/www/en_US/skymiles/use-miles/award-travel/airlines-and-mileage-charts.html"
+  },
+  "b6": {
+    "name": "TrueBlue",
+    "currency": "points",
+    "redeem": ["ha"],
+    "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
+  },
+  "as": {
+    "name": "Mileage Plan",
+    "currency": "miles",
+    "redeem": ["aa", "am", "af", "ba", "cx", "dl", "ek", "fj", "kl", "ke", "la", "ks", "qf"],
+    "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
+  },
+  "ha": {
+    "name": "HawaiianMiles",
+    "currency": "miles",
+    "redeem": ["nh", "aa", "ci", "b6", "ke", "vx", "vs", "va"],
+    "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
+  },
+  "sk": {
+    "name": "EuroBonus",
+    "currency": "points",
+    "redeem": ["jp", "a3", "ac", "ca", "ai", "nz", "nh", "oz", "os", "av", "sn", "cm", "ou", "ms", "et", "br", "lo", "lh", "ua", "zh", "sq", "sa", "lx", "tp", "tg", "tk", "wf"],
+    "url": ""
+  },
+  "lh": {
+    "name": "Miles & More",
+    "currency": "miles",
+    "redeem": ["jp", "a3", "ac", "ca", "ai", "nz", "nh", "oz", "os", "av", "sn", "cm", "ou", "ms", "et", "br", "lo", "ua", "sk", "zh", "sq", "sa", "lx", "tp", "tg", "tk"],
+    "url": ""
+  },
+  "ek": {
+    "name": "Skywards",
+    "currency": "miles",
+    "redeem": ["as", "u2", "jl", "9w", "b6", "jq", "ke", "qf", "s7", "sa", "tp", "vx"],
+    "url": "http://www.emirates.com/vn/English/Skywards/about/partners/our-partners.aspx"
+  },
+  "ua": {
+    "name": "MileagePlus",
+    "currency": "miles",
+    "redeem": [
+      "jp", "a3", "ac", "ca", "ai", "nz", "nh", "oz", "os", "av", "sn", "cm", "ou", "ms", "et", "br", "lo", "lh", "sk", "zh", "sq", "sa", "lx", "tp", "tg", "tk",
+      "ei", "9k", "zk", "4u", "ha", "9w", "3m"],
+    "url": "http://www.united.com/CMS/en-US/Marketing/CustComm/Promotions/Pages/AirlinePartners.aspx"
+  },
+  "vx": {
+    "name": "Elevate",
+    "currency": "points",
+    "redeem": ["vs", "va", "ek", "ha", "sq"],
+    "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
+  }
+};
