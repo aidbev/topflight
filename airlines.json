@@ -297,6 +297,7 @@ var airlines = [
       "name": "Flying Blue",
       "currency": "miles"
     },
+    "credits": ["dl"],
     "url": "http://www.aireuropa.com"
   },
   {
@@ -304,6 +305,7 @@ var airlines = [
     "icao": "afr",
     "name": "Air France",
     "alliance": "st",
+    "credits": ["dl"],
     "url": "http://www.airfrance.com"
   },
   {
@@ -367,6 +369,7 @@ var airlines = [
     "name": "Delta Air Lines",
     "alliance": "st",
     "ffp": "dl",
+    "credits": ["as", "dl"],
     "url": "http://www.delta.com"
   },
   {
@@ -396,6 +399,7 @@ var airlines = [
       "name": "Flying Blue",
       "currency": "miles"
     },
+    "credits": ["dl", "as"],
     "url": "http://www.klm.com"
   },
   {
@@ -473,6 +477,7 @@ var airlines = [
     "name": "American Airlines",
     "alliance": "ow",
     "ffp": "aa",
+    "credits": ["aa", "as", "ba"],
     "url": "http://www.aa.com"
   },
   {
@@ -484,6 +489,7 @@ var airlines = [
       "name": "Executive Club",
       "currency": "Avios"
     },
+    "credits": ["aa", "as"],
     "url": "http://www.ba.com"
   },
   {
@@ -651,6 +657,7 @@ var airlines = [
     "icao": "asa",
     "name": "Alaska Airlines",
     "ffp": "as",
+    "credits": ["aa", "as", "dl"],
     "url": "http://www.alaskaair.com"
   },
   {
@@ -676,6 +683,16 @@ var airlines = [
     "url": "http://www.elal.co.il"
   },
   {
+    "iata": "ka",
+    "icao": "hda",
+    "name": "Dragonair",
+    "ffp": {
+      "name": "The Marco Polo Club",
+      "currency": "miles"
+    },
+    "url": "http://www.dragonair.com"
+  },
+  {
     "iata": "ek",
     "icao": "uae",
     "name": "Emirates",
@@ -690,6 +707,7 @@ var airlines = [
       "name": "Guest",
       "currency": "miles"
     },
+    "credits": ["aa"],
     "url": "http://www.etihad.com"
   },
   {
@@ -956,6 +974,45 @@ var ffps = {
   "aa": {
     "name": "AAdvantage",
     "currency": "miles",
+    "value": 0.017,
+    "earn": {
+      "aa": {
+        "revenue": false,
+        a: 1.5, f: 1.5, p: 1.5,
+        d: 1.5, i: 1.5, j: 1.5, r: 1.5,
+        y: 1, b: 1, w: 1,
+        h: 1, k: 1, m: 1, l: 1, w: 1, v: 1,
+        g: 1, q: 1, n: 1, o: 1, s: 1,
+        "url": "http://www.aa.com/i18n/AAdvantage/earnMiles/airlines/american.jsp"
+      },
+      "as": {
+        "revenue": false,
+        f: 1.5,
+        p: 1.5,
+        y: 1, s: 1,
+        b: 1, h: 1, m: 1, q: 1, u: 1,
+        g: 1, k: 1, l: 1, t: 1, v: 1,
+        "url": "http://www.aa.com/i18n/AAdvantage/earnMiles/airlines/alaska-airlines.jsp"
+      },
+      "ba": {
+        "revenue": false,
+        a: 1.5, f: 1.5,
+        c: 1.25, d: 1.25, i: 1.25, j: 1.25, r: 1.25,
+        e: 1.1, t: 1.1, w: 1.1,
+        y: 1, b: 1,
+        h: 1,
+        k: 1, l: 1, m: 1, v: 1,
+        g: 1, q: 1, s: 1, n: 1, o: 1,
+        "url": "http://www.aa.com/i18n/AAdvantage/earnMiles/airlines/british.jsp"
+      },
+      "ey": {
+        "revenue": false,
+        f: 1.5, a: 1.5, r: 1.5,
+        j: 1.25, c: 1.25, d: 1.25, w: 1.25,
+        y: 1, e: 1, b: 1, h: 1, k: 1, m: 1, q: 1, l: 1, v: 1, u: 1,
+        "url": "http://www.aa.com/i18n/AAdvantage/earnMiles/airlines/etihad.jsp"
+      }
+    },
     "redeem": [
       "ab", "ba", "cx", "ay", "ib", "jl", "la", "mh", "qf", "qr", "rj", "s7", "ul", "jj",
       "tn", "as", "9k", "ey", "fj", "gf", "ha", "9w", "bb"
@@ -965,21 +1022,144 @@ var ffps = {
   "dl": {
     "name": "SkyMiles",
     "currency": "miles",
+    "value": 0.012,
+    "earn": {
+      "dl": {
+        "revenue": true,
+        "mpd": 5
+      },
+      "af": {
+        "revenue": false,
+        p: 3, f: 2,
+        j: 1.75, c: 1.75,
+        d: 1.5, i: 1.5,
+        z: 1.25, w: 1.25, s: 1.25,
+        a: 1, y: 1, b: 1, m: 1, u: 1,
+        k: 0.75,
+        h: 0.5, l: 0.5, q: 0.5, t: 0.5, e: 0.5, n: 0.5,
+        r: 0.25, g: 0.25, v: 0.25,
+        "url": "http://www.delta.com/content/www/en_US/skymiles/earn-miles/earn-miles-with-partners/airlines/air-france.html"
+      },
+      "as": {
+        "revenue": false,
+        f: 2, p: 2,
+        y: 1.25,
+        s: 1, m: 1, b: 1, h: 1,
+        q: 0.75, l: 0.75, v: 0.75,
+        k: 0.5, g: 0.5, t: 0.5, r: 0.5,
+        "url": "http://www.delta.com/content/www/en_US/skymiles/earn-miles/earn-miles-with-partners/airlines/alaska-airlines.html"
+      },
+      "az": {
+        "revenue": false,
+        j: 1.75, c: 1.75,
+        d: 1.5, i: 1.5, e: 1.5,
+        a: 1.25, p: 1.25,
+        y: 1, b: 1, m: 1, h: 1,
+        k: 0.75, v: 0.75, t: 0.75,
+        n: 0.5, s: 0.5, q: 0.5, x: 0.5, g: 0.5,
+        r: 0.25, f: 0.25, o: 0.25, l: 0.25, w: 0.25,
+        "url": "http://www.delta.com/content/www/en_US/skymiles/earn-miles/earn-miles-with-partners/airlines/alitalia.html"
+      },
+      "kl": {
+        "revenue": false,
+        j: 1.75, c: 1.75,
+        d: 1.5, i: 1.5,
+        z: 1.25,
+        y: 1, b: 1, m: 1, u: 1,
+        k: 0.75, w: 0.75,
+        h: 0.5, l: 0.5, q: 0.5, t: 0.5, e: 0.5, n: 0.5, s: 0.5, a: 0.5,
+        r: 0.25, g: 0.25, v: 0.25,
+        "url": "http://www.delta.com/content/www/en_US/skymiles/earn-miles/earn-miles-with-partners/airlines/klm-royal-dutch-airlines.html"
+      }
+    },
     "redeem": [
       "su", "ar", "am", "ux", "af", "az", "ci", "mu", "cz", "ok", "ga", "kq", "kl", "ke", "me", "sv", "ro", "vn", "mf",
       "as", "g3", "ha", "tn", "vs", "va", "zk"
     ],
     "url": "http://www.delta.com/content/www/en_US/skymiles/use-miles/award-travel/airlines-and-mileage-charts.html"
   },
+  "ba": {
+    "name": "Executive Club",
+    "currency": "Avios",
+    "value": 0.016,
+    "earn": {
+      "aa": {
+        "revenue": false,
+        f: 1.5, p: 1.5, a: 1.5,
+        j: 1.25, d: 1.25, i: 1.25, c: 1.25, r: 1.25,
+        y: 1, b: 1,
+        h: 0.5, k: 0.5, m: 0.5, l: 0.5, w: 0.5, v: 0.5,
+        g: 0.25, q: 0.25, n: 0.25, o: 0.25, s: 0.25,
+        "url": "http://www.britishairways.com/en-us/executive-club/modalContent/executive-club/avios/collecting-avios/flights/american-airlines-collecting-avios.html"
+      },
+    },
+    "redeem": ["aa"],
+    "url": ""
+  },
   "b6": {
     "name": "TrueBlue",
     "currency": "points",
+    "value": 0.012,
     "redeem": ["ha"],
     "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
   },
   "as": {
     "name": "Mileage Plan",
     "currency": "miles",
+    "value": 0.02,
+    "earn": {
+      "aa": {
+        "revenue": false,
+        a: 1.5, f: 1.5, p: 1.5,
+        c: 1.25, d: 1.25, i: 1.25, j: 1.25,
+        b: 1, g: 1, h: 1, k: 1, l: 1, m: 1, n: 1, o: 1, q: 1, r: 1, s: 1, v: 1, w: 1, x: 1, y: 1,
+        "url": "http://www.alaskaair.com/content/mileage-plan/partners/american.aspx"
+      },
+      "af": {
+        "revenue": false,
+        p: 1.5, f: 1.5,
+        j: 1.25, c: 1.25, d: 1.25, i: 1.25, z: 1.25,
+        a: 1, w: 1.25, s: 1.25,
+        t: 0.25, e: 0.25, n: 0.25, v: 0.25, r: 0.25, g: 0.25,
+        h: 0.5, l: 0.5, q: 0.5, u: 0.75, k: 0.75,
+        y: 1, b: 1, m: 1,
+        "url": "http://www.alaskaair.com/content/mileage-plan/partners/air-france.aspx"
+      },
+      "ba": {
+        "revenue": false,
+        a: 2.5, f: 3,
+        r: 1.5, i: 1.5, j: 2.5, c: 2.5, d: 2.5,
+        e: 1, t: 1, w: 1.5,
+        q: 0.25, o: 0.25, g: 0.25,
+        k: 0.5, l: 0.5, m: 0.5, n: 0.5, s: 0.5, v: 0.5,
+        y: 1, b: 1, h: 1,
+        "url": "http://www.alaskaair.com/content/mileage-plan/partners/british.aspx"
+      },
+      "dl": {
+        "revenue": false,
+        f: 2, p: 2,
+        a: 1.75,
+        g: 1.25,
+        j: 1.75, c: 1.75,
+        d: 1.5, i: 1.5,
+        z: 1.25,
+        y: 1.25,
+        b: 1, m: 1, s: 1,
+        h: 0.75, q: 0.75, k: 0.75,
+        l: 0.5, u: 0.5, t: 0.5, x: 0.5, v: 0.5,
+        e: 0.25,
+        "url": "http://www.alaskaair.com/content/mileage-plan/partners/delta.aspx"
+      },
+      "kl": {
+        "revenue": false,
+        j: 1.25, c: 1.25, d: 1.25, i: 1.25, z: 1.25,
+        t: 0.25, e: 0.25, n: 0.25, v: 0.25, r: 0.25, g: 0.25,
+        h: 0.5, l: 0.5, q: 0.5, s: 0.5, a: 0.5,
+        u: 0.75, w: 0.75,
+        y: 1, b: 1, m: 1,
+        "url": "http://www.alaskaair.com/content/mileage-plan/partners/klm.aspx"
+      },
+    },
     "redeem": ["aa", "am", "af", "ba", "cx", "dl", "ek", "fj", "kl", "ke", "la", "ks", "qf"],
     "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
   },
@@ -1010,6 +1190,13 @@ var ffps = {
   "ua": {
     "name": "MileagePlus",
     "currency": "miles",
+    "value": 0.015,
+    "earn": {
+      "ua": {
+        "revenue": true,
+        "mpd": 5
+      }
+    },
     "redeem": [
       "jp", "a3", "ac", "ca", "ai", "nz", "nh", "oz", "os", "av", "sn", "cm", "ou", "ms", "et", "br", "lo", "lh", "sk", "zh", "sq", "sa", "lx", "tp", "tg", "tk",
       "ei", "9k", "zk", "4u", "ha", "9w", "3m"],
@@ -1018,6 +1205,7 @@ var ffps = {
   "vx": {
     "name": "Elevate",
     "currency": "points",
+    "value": 0.019,
     "redeem": ["vs", "va", "ek", "ha", "sq"],
     "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
   }

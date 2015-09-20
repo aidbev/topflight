@@ -12,6 +12,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <style type="text/css">
       body {
+        margin: 20px;
         font: 14pt 'Montserrat';
       }
       h2 {
@@ -20,48 +21,33 @@
       input, label {
         font: 12pt 'Lato';
       }
-      #results {
-        font: 14pt 'Montserrat';
-        font-weight: normal;
-        color: #333;
-      }
       .result {
-        display: table;
         background: #DEF;
         /*border: 1px solid #333;*/
-        border-radius: 8px;
         color: #333;
-        text-decoration: none;
-        min-width: 290px;
-        width: 99%;
-        height: auto;
-        margin: 7px;
-        padding: 5px;
         cursor: pointer;
       }
       .result:hover {
         background: #CDE;
       }
       .fare {
+        border-radius: 8px 0px 0px 8px;
         font: 14pt 'Montserrat' bold;
         color: #383;
-        padding: 10px;
         width: 60px;
         text-align: center;
-        border-right: 1px solid gray;
-        display: table-cell;
         vertical-align: middle;
       }
       .flight_details {
-        padding-left: 15px;
-        //TODO:FIX;
+        min-width: 400px;
+        padding: 10px 15px;
       }
-      .flight_data {
-        font: 14pt 'Lato';
+      .flight_data, .credit_info {
+        padding: 10px;
+        font: 11pt 'Lato';
         font-weight: normal;
         color: #333;
         padding: 6px 10px;
-        font-size: 11pt;
       }
       #loading {
         position: absolute;
@@ -76,6 +62,7 @@
     <script type="text/javascript">
       var AMADEUS_API_KEY = "7J4zdDj82DKOGsU8C0U1h4mGaeLmrwrE";
       var queries = {};
+      var distCache = {};
 
       $(function() {
         $("#ori, #dst").click(function(e) {
@@ -91,7 +78,7 @@
             );
             var cityMatches = airports.filter(
               function(airport){
-                return airport.iata &&
+                return airport.iata && airport.iata !== request.term.toUpperCase() &&
                   airport.city.toLowerCase().indexOf(request.term.toLowerCase()) === 0;
               }
             );
@@ -187,10 +174,12 @@
         }
 
         $("input[name=tt]").change(function(r) {
-          if (r.target.id === "ow")
+          if (r.target.id === "ow") {
             $("#ret").datepicker("setDate", "");
-          else
+            $("#dep").datepicker({"minDate": "-1", "maxDate": "+11M"});
+          } else {
             $("#ret").datepicker("setDate", $("#dep").datepicker("getDate"));
+          }
           amadeusQuery();
         });
 
@@ -220,6 +209,9 @@
         if (return_date = $('#retFmt').val())
           qs["return_date"] = return_date;
 
+        if (include_airlines = $('#airlines').val())
+          qs["include_airlines"] = include_airlines;
+
         var queryID = new Date().getTime();
         queries[queryID] = true;
         $("#loading").show();
@@ -229,56 +221,66 @@
           "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search", qs
         )
         .done(function(data) {
-          var resultsDiv = $("#results");
-          resultsDiv.empty();
+          var resultsTable = $("#results");
+          resultsTable.empty();
 
           delete queries[queryID];
           if ($.isEmptyObject(queries)) {
             hideLoadingUI();
           }
 
-          $.each(data.results, function(i, result){
+          $.each(data.results, function(i, result) {
             console.log(result);
 
-            var resultRow = $(document.createElement('a'))
+            //result.itineraries.forEach(function(itinerary) {
+            itinerary = result.itineraries[0];
+            var resultRow = $(document.createElement('tr'))
               .addClass('result')
               //.attr('href', airline.url)
-              .appendTo(resultsDiv);
+              .appendTo(resultsTable);
 
             resultRow.click(function(a){
               $(this).find('.extradata').toggle();
             });
 
-            $(document.createElement('div'))
+            $(document.createElement('td'))
               .addClass('fare')
               .text("$"+Math.ceil(result.fare.total_price))
               .appendTo(resultRow);
 
-            var flightDetails = $(document.createElement('table'))
+            var bf = result.fare.total_price*1 -
+                     result.fare.price_per_adult.tax*1;
+
+            // var flightDetails = $(document.createElement('table'))
+            //   .addClass('flight_details')
+            //   //.attr('href', airline.url)
+            //   .appendTo(resultRow);
+
+            var resultTd = $(document.createElement('td'))
               .addClass('flight_details')
-              //.attr('href', airline.url)
               .appendTo(resultRow);
 
-            $.each(result.itineraries, function(i, itinerary) {
-              console.log(itinerary);
-              appendFlightDetails(flightDetails, itinerary.outbound.flights);
+            var flightTable = $(document.createElement('table'))
+              .appendTo(resultTd);
 
-              if(itinerary.inbound) {
-                appendFlightDetails(flightDetails, itinerary.inbound.flights);
-              }
-            });
+            appendFlightDetails(flightTable, itinerary.outbound.flights, bf);
+
+            if (itinerary.inbound) {
+              appendFlightDetails(flightTable, itinerary.inbound.flights, bf);
+            }
+            // });
           });
         })
         .fail(function(jqxhr, textStatus, error) {
           delete queries[queryID];
           if ($.isEmptyObject(queries)) {
             hideLoadingUI();
-            $("#results").empty();
+            $("#results").empty().append("No results.")
           }
         });
       }
 
-      function appendFlightDetails(container, flights) {
+      function appendFlightDetails(container, flights, baseFare) {
         var stops = flights.length-1;
         var firstFlight = flights[0];
         var lastFlight = flights[flights.length-1];
@@ -294,64 +296,72 @@
             .addClass('_' + firstFlight.marketing_airline.toLowerCase())
             .appendTo(logoCell);
 
-        if (stops == 0) {
-          var flightData = $(document.createElement('td'))
-            .addClass('flight_data')
-            .html(formatFlightTimes(
-              new Date(firstFlight.departs_at),
-              new Date(lastFlight.arrives_at)) + "<br />" +
-              firstFlight.origin.airport + "–" + firstFlight.destination.airport
-            )
-            .appendTo(flightRow);
+        var totalMileage = 0;
 
-          if (firstFlight.operating_airline != firstFlight.marketing_airline) {
-            flightData.append(" (operated by " +
-              iataLookup(firstFlight.operating_airline).name + ")");
-          }
+        var flightData = $(document.createElement('td'))
+          .addClass('flight_data')
+          .html(formatFlightTimes(
+            new Date(firstFlight.departs_at),
+            new Date(lastFlight.arrives_at)) + "<br />" +
+            firstFlight.origin.airport + "–" + lastFlight.destination.airport
+            + (stops?" (" + stops + " stop" + (stops>1?"s":"") + ")":""))
+          .appendTo(flightRow);
 
-          var flightSubDetail = $(document.createElement('td'))
-              .addClass('flight_details')
-              .addClass('extradata')
-              //.attr('href', airline.url)
-              .appendTo(flightData)
-              .hide();
+        var flightSubDetail = $(document.createElement('div'))
+          .addClass('extradata')
+          //.attr('href', airline.url)
+          .appendTo(flightData)
+          .hide();
 
-          $(document.createElement('div'))
-            .text(firstFlight.marketing_airline + " " + firstFlight.flight_number)
+        $.each(flights, function(j, flight) {
+          var mileage = dist(flight.origin.airport, flight.destination.airport);
+          //only if flight numbers are different...
+          totalMileage += mileage;
+          var flightExtraData = $(document.createElement('div'))
+            .text(flight.marketing_airline + " " + flight.flight_number
+              + ": " + flight.origin.airport + "–" + flight.destination.airport
+              + " (" + mileage + " mi)")
             .appendTo(flightSubDetail);
-        } else {
-          var flightData = $(document.createElement('td'))
-            .addClass('flight_data')
-            .html(formatFlightTimes(
-              new Date(firstFlight.departs_at),
-              new Date(lastFlight.arrives_at)) + "<br />" +
-              firstFlight.origin.airport + "–" + lastFlight.destination.airport
-              + " (" + stops + " stop" + (stops>1?"s":"") + ")")
-            .appendTo(flightRow);
 
-          var flightSubDetail = $(document.createElement('td'))
-              .addClass('flight_details')
-              .addClass('extradata')
-              //.attr('href', airline.url)
-              .appendTo(flightData)
-              .hide();
+          var opAir = flight.operating_airline;
+          if (flight.operating_airline != flight.marketing_airline) {
+              flightExtraData.append(" (operated by " +
+                (iataLookup(opAir) ? iataLookup(opAir).name : opAir) + ")");
+          }
+        });
 
-          $.each(flights, function(j, flight) {
-            var flightExtraData = $(document.createElement('div'))
-              .text(flight.marketing_airline + " " + flight.flight_number
-                + ": " + flight.origin.airport + "–" + flight.destination.airport)
-              .appendTo(flightSubDetail);
-
-            if (flight.operating_airline != flight.marketing_airline) {
-                flightExtraData.append(" (operated by " +
-                  iataLookup(flight.operating_airline).name + ")");
-            }
             // $(document.createElement('div'))
             //   .addClass('flight_data')
             //   .text("Fare class: " + flight.booking_info.booking_code)
             //   .appendTo(flightSubDetail);
+        // }
+        var creditsTo = iataLookup(firstFlight.marketing_airline).credits;
+        var fareClass = firstFlight.booking_info.booking_code;
+        var creditInfo = $(document.createElement('td'))
+          .addClass('credit_info')
+          .appendTo(container.parent().parent());
+        $(document.createElement('div'))
+          .html("<b>" + fareClass + " class</b>")
+          .css("font-size", "14pt")
+          .appendTo(creditInfo);
+        if (creditsTo) {
+          creditsTo.forEach(function(airline) {
+            var earnTable = ffps[airline].earn[firstFlight.marketing_airline.toLowerCase()]
+            if (earnTable) {
+              if (!earnTable.revenue && (multiplier = earnTable[fareClass.toLowerCase()])) {
+                var earning = Math.round(multiplier*totalMileage);
+              } else {
+                console.log(earnTable, baseFare);
+                var earning = Math.round(earnTable.mpd * baseFare);
+              }
+              var cashValue = ffps[airline].value*earning;
+                $(document.createElement('div'))
+                  .html(earning + " " + iataLookup(airline).name + " " +
+                    ffps[airline].currency + " &asymp; "
+                    + "<b>$"+Math.round(cashValue) + "</b>")
+                  .appendTo(creditInfo);
+            }
           });
-
         }
       }
 
@@ -359,6 +369,43 @@
         return airlines.find(function(airline) {
           return airline.iata == iata.toLowerCase();
         });
+      }
+
+      function dist(iata1, iata2) {
+        if (lookup = distCache[airport1+airport2]) {
+          return lookup;
+        }
+        var airport1 = airports.find(function(airport) {
+          return airport.iata === iata1;
+        });
+        var lat1 = airport1.latitude;
+        var lon1 = airport1.longitude;
+
+        var airport2 = airports.find(function(airport) {
+          return airport.iata === iata2;
+        });
+        if (!airport1 || !airport2)
+          return;
+
+        var lat2 = airport2.latitude;
+        var lon2 = airport2.longitude;
+
+        var EARTH_RADIUS = 3959; // mi
+        var x1 = lat2-lat1;
+        var dLat = toRad(x1);
+        var x2 = lon2-lon1;
+        var dLon = toRad(x2);
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var result = Math.round(EARTH_RADIUS * c);
+        distCache[iata1+""+iata2] = result;
+        return result;
+      }
+
+      function toRad(x) {
+        return x * Math.PI / 180;
       }
 
       function hideLoadingUI() {
@@ -384,7 +431,7 @@
         var aDate = new Date(a.getUTCFullYear(), a.getUTCMonth(), a.getUTCDate());
         var diff = (aDate - dDate) / (24*60*60*1000);
         var diffFmt = diff > 0 ? "+" + diff : "";
-        return (dFmt + " – " + aFmt) + (diff != 0 ? " (" + diffFmt + ")" : "");
+        return (dFmt + " – " + aFmt)// + (diff != 0 ? " (" + diffFmt + ")" : "");
       }
     </script>
   </head>
@@ -410,9 +457,13 @@
           <input id="ret" autocomplete="off" placeholder="Returning" />
           <input id="retFmt" type="hidden">
         </td>
+        <!-- <td>
+          <input id="airlines" autocomplete="off" placeholder="Airlines" />
+        </td> -->
       </tr>
     </table>
+    <br />
     <div id="loading">Loading...</div>
-    <div id="results"></div>
+    <table id="results"></table>
   </body>
 </html>
