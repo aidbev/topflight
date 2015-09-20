@@ -178,8 +178,8 @@
             $("#dep").datepicker("setDate", newDep);
             $("#ret").datepicker("option", "minDate", newDep);
           }
-          var newRet = new Date(qh[6], qh[7]-1, qh[8]);
-          if (newRet < newDep){
+          var newRet = qh[8] ? new Date(qh[6], qh[7]-1, qh[8]) : "";
+          if (newRet < newDep || !newRet){
             newRet = "";
           } else {
             $("#rt").prop("checked", true);
@@ -188,8 +188,11 @@
           $("#dep").datepicker("option", "maxDate", newRet);
         }
 
-        $("#ow").click(function() {
-          $("#ret").datepicker("setDate", "");
+        $("input[name=tt]").change(function(r) {
+          if (r.target.id === "ow")
+            $("#ret").datepicker("setDate", "");
+          else
+            $("#ret").datepicker("setDate", $("#dep").datepicker("getDate"));
           amadeusQuery();
         });
 
