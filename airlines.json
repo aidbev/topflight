@@ -632,15 +632,22 @@ var airlines = [
     "url": "http://www.aerlingus.com"
   },
   {
+    "iata": "xk",
+    "icao": "ccm",
+    "name": "Air Corsica",
+    "url": "http://www.aircorsica.com"
+  },
+  {
     "iata": "gl",
     "icao": "grl",
     "name": "Air Greenland",
+    "url": "https://www.airgreenland.com"
   },
   {
     "iata": "tn",
     "icao": "tht",
     "name": "Air Tahiti Nui",
-    "url": "https://www.airtahitinui.com/"
+    "url": "https://www.airtahitinui.com"
   },
   {
     "iata": "ts",
@@ -844,6 +851,12 @@ var airlines = [
     "url": "http://www.norwegian.com"
   },
   {
+    "iata": "ec",
+    "icao": "bos",
+    "name": "OpenSkies",
+    "url": "http://www.flyopenskies.com"
+  },
+  {
     "iata": "ks",
     "icao": "pen",
     "name": "PenAir",
@@ -864,6 +877,12 @@ var airlines = [
     "icao": "ryr",
     "name": "Ryanair",
     "url": "http://www.ryanair.com"
+  },
+  {
+    "iata": "s4",
+    "icao": "rzo",
+    "name": "SATA",
+    "url": "http://www.sata.pt"
   },
   {
     "iata": "bb",
@@ -971,6 +990,12 @@ var airlines = [
     "name": "WOW Air",
     "url": "http://www.wowair.com"
   },
+  {
+    "iata": "se",
+    "icao": "xlf",
+    "name": "XL Airways France",
+    "url": "http://www.xl.com"
+  }
 ];
 
 var ffps = {
@@ -1133,6 +1158,13 @@ var ffps = {
         h: 0.5, l: 0.5, q: 0.5, u: 0.75, k: 0.75,
         y: 1, b: 1, m: 1,
         "url": "http://www.alaskaair.com/content/mileage-plan/partners/air-france.aspx"
+      },
+      "as": {
+        "revenue": false,
+        f: 1.75, p: 1.75,
+        y: 1.5, s: 1.5, m: 1.25, b: 1.25,
+        h: 1, q: 1, l: 1, v: 1, k: 1, g: 1, t: 1, r: 1, u: 1,
+        "url": "http://www.alaskaair.com/content/mileage-plan/earn-use-miles/earn-on-alaska.aspx"
       },
       "ba": {
         "revenue": false,

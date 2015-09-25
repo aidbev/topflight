@@ -29,9 +29,11 @@
       input, label {
         font: 12pt 'Lato';
       }
+      #results {
+        border-spacing: 0px 4px;
+      }
       .result {
         background: #DEF;
-        color: #333;
         cursor: pointer;
       }
       .result:hover {
@@ -39,6 +41,7 @@
       }
       .fare {
         border-radius: 8px 0px 0px 8px;
+        border-right: 1px solid #99C;
         font: 14pt 'Montserrat' bold;
         color: #383;
         width: 60px;
@@ -46,25 +49,36 @@
         vertical-align: middle;
       }
       .flight_details {
-        padding: 10px 15px;
+        padding: 0px 15px;
+        border-right: 1px solid #99C;
       }
       .flight_data, .credit_info {
         padding: 10px;
         font: 11pt 'Lato';
         font-weight: normal;
-        width: 300px;
+        width: 350px;
         color: #333;
       }
-      .credit_info {
+      .extradata {
+        padding-top: 10px;
+      }
+      .stops {
+        float: right;
+      }
+      .gray {
+        color: #777;
+      }
+      .credit_info:last-child {
         border-radius: 0px 8px 8px 0px;
       }
       #loading {
+        border-radius: 8px;
         position: absolute;
         top:10px;
         left:50%;
         margin-left:-50px;
         width: 100px;
-        background: #FFA;
+        background: #FE9;
         padding: 10px;
       }
     </style>
@@ -111,7 +125,6 @@
 
             amadeusQuery();
             return false;
-            // $(event.target).blur();
           },
           change: function (event, ui) {
             if (!ui.item) {
@@ -148,7 +161,7 @@
             $("#dep").datepicker("option", "maxDate", selectedDate);
           },
           onSelect: function(d, i) {
-            if (d !== i.lastVal){
+            if (d !== i.lastVal) {
               $("#rt").prop("checked", true);
               amadeusQuery();
             }
@@ -173,7 +186,7 @@
             $("#ret").datepicker("option", "minDate", newDep);
           }
           var newRet = qh[8] ? new Date(qh[6], qh[7]-1, qh[8]) : "";
-          if (newRet < newDep || !newRet){
+          if (newRet < newDep || !newRet) {
             newRet = "";
           } else {
             $("#rt").prop("checked", true);
@@ -241,43 +254,43 @@
           $.each(data.results, function(i, result) {
             console.log(result);
 
-            //result.itineraries.forEach(function(itinerary) {
-            itinerary = result.itineraries[0];
-            var resultRow = $(document.createElement('tr'))
-              .addClass('result')
-              //.attr('href', airline.url)
-              .appendTo(resultsTable);
+            result.itineraries.forEach(function(itinerary) {
+              //itinerary = result.itineraries[0];
+              var resultRow = $(document.createElement('tr'))
+                .addClass('result')
+                //.attr('href', airline.url)
+                .appendTo(resultsTable);
 
-            resultRow.click(function(a){
-              $(this).find('.extradata').toggle();
+              resultRow.click(function(a){
+                $(this).find('.extradata').toggle();
+              });
+
+              $(document.createElement('td'))
+                .addClass('fare')
+                .text("$"+Math.ceil(result.fare.total_price))
+                .appendTo(resultRow);
+
+              var bf = result.fare.total_price*1 -
+                       result.fare.price_per_adult.tax*1;
+
+              // var flightDetails = $(document.createElement('table'))
+              //   .addClass('flight_details')
+              //   //.attr('href', airline.url)
+              //   .appendTo(resultRow);
+
+              var resultTd = $(document.createElement('td'))
+                .addClass('flight_details')
+                .appendTo(resultRow);
+
+              var flightTable = $(document.createElement('table'))
+                .appendTo(resultTd);
+
+              appendFlightDetails(flightTable, itinerary.outbound.flights, bf);
+
+              if (itinerary.inbound) {
+                appendFlightDetails(flightTable, itinerary.inbound.flights, bf);
+              }
             });
-
-            $(document.createElement('td'))
-              .addClass('fare')
-              .text("$"+Math.ceil(result.fare.total_price))
-              .appendTo(resultRow);
-
-            var bf = result.fare.total_price*1 -
-                     result.fare.price_per_adult.tax*1;
-
-            // var flightDetails = $(document.createElement('table'))
-            //   .addClass('flight_details')
-            //   //.attr('href', airline.url)
-            //   .appendTo(resultRow);
-
-            var resultTd = $(document.createElement('td'))
-              .addClass('flight_details')
-              .appendTo(resultRow);
-
-            var flightTable = $(document.createElement('table'))
-              .appendTo(resultTd);
-
-            appendFlightDetails(flightTable, itinerary.outbound.flights, bf);
-
-            if (itinerary.inbound) {
-              appendFlightDetails(flightTable, itinerary.inbound.flights, bf);
-            }
-            // });
           });
         })
         .fail(function(jqxhr, textStatus, error) {
@@ -307,13 +320,18 @@
 
         var totalMileage = 0;
 
+        var stopsFmt = "<span class='stops'>" + (stops?stops + " stop" + (stops>1?"s":""):"nonstop") + "</span>";
+
+        var airlineData = iataLookup(firstFlight.marketing_airline);
+        var airlineFmt = airlineData ? " &middot; " + airlineData.name : "";
+
         var flightData = $(document.createElement('td'))
           .addClass('flight_data')
           .html(formatFlightTimes(
             new Date(firstFlight.departs_at),
-            new Date(lastFlight.arrives_at)) + "<br />" +
+            new Date(lastFlight.arrives_at)) + stopsFmt + "<br />" +
             firstFlight.origin.airport + "–" + lastFlight.destination.airport
-            + (stops?" (" + stops + " stop" + (stops>1?"s":"") + ")":""))
+            + "<span class='gray'>" + airlineFmt + "</span>")
           .appendTo(flightRow);
 
         var flightSubDetail = $(document.createElement('div'))
@@ -333,14 +351,14 @@
             .appendTo(flightSubDetail);
 
           var opAir = flight.operating_airline;
-          if (flight.operating_airline != flight.marketing_airline) {
-              flightExtraData.append(" (operated by " +
-                (iataLookup(opAir) ? iataLookup(opAir).name : opAir) + ")");
+          var opAirName = iataLookup(opAir) ? iataLookup(opAir).name : opAir;
+          if (opAir != flight.marketing_airline) {
+              flightExtraData.append(" (operated by " + opAirName + ")");
           }
         });
 
-        var creditsTo = iataLookup(firstFlight.marketing_airline).credits;
         var fareClass = firstFlight.booking_info.booking_code;
+        var creditsTo = airlineData.credits;
         var creditInfo = $(document.createElement('td'))
           .addClass('credit_info')
           .appendTo(container.parent().parent());
@@ -372,7 +390,7 @@
       function iataLookup(iata) {
         return airlines.find(function(airline) {
           return airline.iata == iata.toLowerCase();
-        });
+        }) || false;
       }
 
       function dist(iata1, iata2) {
@@ -442,10 +460,20 @@
   <body>
     <h2>milesand.me ✈ topflight</h2>
     <p class="desc">Topflight helps you find the best flights every time.
-      Search with fare classes and earning amounts exposed.</p>
-    <label><input id="rt" type="radio" name="tt" value="rt">Round trip</label>
-    <label><input id="ow" type="radio" name="tt" value="ow" checked>One way</label>
+      Search with fare classes and earning amounts exposed.
+      <br />
+      Earning calculation currently only supports US-based airlines.
+    </p>
+    <br />
     <table>
+      <tr>
+        <td>
+          <label><input id="rt" type="radio" name="tt" value="rt">Round trip</label>
+        </td>
+        <td>
+          <label><input id="ow" type="radio" name="tt" value="ow" checked>One way</label>
+        </td>
+      </tr>
       <tr>
         <td>
           <input id="ori" autocomplete="off" placeholder="Origin" value="BOS" />
