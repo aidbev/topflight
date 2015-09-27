@@ -196,6 +196,7 @@ var airlines = [
     "icao": "sia",
     "name": "Singapore Airlines",
     "alliance": "sa",
+    "credits": ["sq", "ua"],
     "url": "http://www.singaporeair.com"
   },
   {
@@ -255,7 +256,7 @@ var airlines = [
     "name": "United Airlines",
     "alliance": "sa",
     "ffp": "ua",
-    "credits": ["ua"],
+    "credits": ["ua", "sq"],
     "url": "http://www.united.com"
   },
 
@@ -821,7 +822,7 @@ var airlines = [
     "icao": "jbu",
     "name": "JetBlue",
     "ffp": "TrueBlue",
-    "credits": ["b6"],
+    "credits": ["b6", "sq"],
     "url": "http://www.jetblue.com"
   },
   {
@@ -933,7 +934,7 @@ var airlines = [
     "icao": "vrd",
     "name": "Virgin America",
     "ffp": "vx",
-    "credits": ["vx"],
+    "credits": ["vx", "sq"],
     "url": "http://www.virginamerica.com"
   },
   {
@@ -1228,11 +1229,58 @@ var ffps = {
     "redeem": ["as", "u2", "jl", "9w", "b6", "jq", "ke", "qf", "s7", "sa", "tp", "vx"],
     "url": "http://www.emirates.com/vn/English/Skywards/about/partners/our-partners.aspx"
   },
+  "sq": {
+    "name": "KrisFlyer",
+    "currency": "miles",
+    "value": 0.015,
+    "earn": {
+      "b6": {
+        "revenue": false,
+        j: 1.25, c: 1.25, d: 1.25, i: 1.25,
+        y: 1, e: 1, k: 1, h: 1, q: 1, b: 1,
+        l: 1, v: 1, r: 1, w: 1, m: 1,
+        z: 0.5, o: 0.5, u: 0.5, s: 0.5, p: 0.5,
+        "url": "http://www.singaporeair.com/pdf/ppsclub_krisflyer/charts/KFOALLevels.pdf"
+      },
+      "sq": {
+        "revenue": false,
+        r: 3, a: 1.5, f: 1.5, c: 1.25, d: 1.25, j: 1.25, z: 1.25, u: 1.25,
+        p: 1.1, s: 1.1, t: 1.1,
+        b: 1, e: 1, h: 1, l: 1, m: 1, w: 1, y: 1,
+        n: 0.5, q: 0.5, k: 0.1, v: 0.1,
+        "url": "http://www.singaporeair.com/pdf/ppsclub_krisflyer/charts/KFOALLevels.pdf"
+      },
+      "ua": {
+        "revenue": false,
+        a: 1.5, f: 1.5, c: 1.25, d: 1.25, j: 1.25,
+        p: 1, z: 1, b: 1, e: 1, g: 1, h: 1, k: 1, l: 1,
+        m: 1, q: 1, s: 1, t: 1, u: 1, v: 1, w: 1, y: 1,
+        "url": "http://www.singaporeair.com/pdf/ppsclub_krisflyer/charts/KFOALLevels.pdf"
+      },
+      "vx": {
+        "revenue": false,
+        c: 1.5, d: 1.5, j: 1.5,
+        o: 1, q: 1, w: 1, z: 1, b: 1, e: 1, h: 1,
+        i: 1, l: 1, m: 1, s: 1, u: 1, v: 1, y: 1,
+        "url": "http://www.singaporeair.com/pdf/ppsclub_krisflyer/charts/KFOALLevels.pdf"
+      }
+    },
+    "redeem": [
+      "jp", "a3", "ac", "ca", "ai", "nz", "nh", "oz", "os", "av", "sn", "cm", "ou", "ms", "et", "br", "lo", "lh", "sk", "zh", "ua", "sa", "lx", "tp", "tg", "tk",
+      "ei", "9k", "zk", "4u", "ha", "9w", "3m"],
+  },
   "ua": {
     "name": "MileagePlus",
     "currency": "miles",
     "value": 0.015,
     "earn": {
+      "sq": {
+        "revenue": false,
+        r: 1.5, f: 1.5, a: 1.25, z: 1.25, c: 1.25, j: 1.25,
+        u: 1, d: 1, s: 1, t: 1, p: 1, y: 1, b: 1,
+        e: 0.75, m: 0.75, h: 0.5, w: 0.5, l: 0.5,
+        "url": "https://www.united.com/CMS/en-US/marketing/custcomm/promotions/Pages/AirlinePartnerDetails.aspx?ItemId=304"
+      },
       "ua": {
         "revenue": true,
         "mpd": 5

@@ -1,3 +1,66 @@
+body {
+  margin: 20px;
+  font: 14pt 'Montserrat';
+}
+.desc {
+  font: 12pt 'Lato' normal;
+}
+input, label {
+  font: 12pt 'Lato';
+}
+#results {
+  border-spacing: 0px 4px;
+}
+.result {
+  background: #DEF;
+  cursor: pointer;
+}
+.result:hover {
+  background: #CDE;
+}
+.fare {
+  border-radius: 8px 0px 0px 8px;
+  border-right: 1px solid #99C;
+  font: 14pt 'Montserrat' bold;
+  color: #383;
+  width: 60px;
+  text-align: center;
+  vertical-align: middle;
+}
+.flight_details {
+  padding: 0px 15px;
+  border-right: 1px solid #99C;
+}
+.flight_data, .credit_info {
+  padding: 10px;
+  font: 11pt 'Lato';
+  font-weight: normal;
+  width: 350px;
+  color: #333;
+}
+.extradata {
+  padding-top: 10px;
+}
+.stops {
+  float: right;
+}
+.gray {
+  color: #777;
+}
+.credit_info:last-child {
+  border-radius: 0px 8px 8px 0px;
+}
+#loading {
+  border-radius: 8px;
+  position: absolute;
+  top:10px;
+  left:50%;
+  margin-left:-50px;
+  width: 100px;
+  background: #FE9;
+  padding: 10px;
+}
+
 .logo {
 	display: inline-block;
 	background: url('iata.png') no-repeat;

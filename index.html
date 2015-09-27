@@ -3,7 +3,7 @@
     <title>Topflight</title>
     <meta charset="UTF-8">
     <link href="http://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet" type="text/css">
-    <link href="iata.css" rel="stylesheet" type="text/css">
+    <link href="main.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="airlines.json"></script>
     <script type="text/javascript" src="airports.json"></script>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -18,70 +18,6 @@
       ga('create', 'UA-9941292-8', 'auto');
       ga('send', 'pageview');
     </script>
-    <style type="text/css">
-      body {
-        margin: 20px;
-        font: 14pt 'Montserrat';
-      }
-      .desc {
-        font: 12pt 'Lato' normal;
-      }
-      input, label {
-        font: 12pt 'Lato';
-      }
-      #results {
-        border-spacing: 0px 4px;
-      }
-      .result {
-        background: #DEF;
-        cursor: pointer;
-      }
-      .result:hover {
-        background: #CDE;
-      }
-      .fare {
-        border-radius: 8px 0px 0px 8px;
-        border-right: 1px solid #99C;
-        font: 14pt 'Montserrat' bold;
-        color: #383;
-        width: 60px;
-        text-align: center;
-        vertical-align: middle;
-      }
-      .flight_details {
-        padding: 0px 15px;
-        border-right: 1px solid #99C;
-      }
-      .flight_data, .credit_info {
-        padding: 10px;
-        font: 11pt 'Lato';
-        font-weight: normal;
-        width: 350px;
-        color: #333;
-      }
-      .extradata {
-        padding-top: 10px;
-      }
-      .stops {
-        float: right;
-      }
-      .gray {
-        color: #777;
-      }
-      .credit_info:last-child {
-        border-radius: 0px 8px 8px 0px;
-      }
-      #loading {
-        border-radius: 8px;
-        position: absolute;
-        top:10px;
-        left:50%;
-        margin-left:-50px;
-        width: 100px;
-        background: #FE9;
-        padding: 10px;
-      }
-    </style>
     <script type="text/javascript">
       var AMADEUS_API_KEY = "7J4zdDj82DKOGsU8C0U1h4mGaeLmrwrE";
       var queries = {};
@@ -319,6 +255,7 @@
             .appendTo(logoCell);
 
         var totalMileage = 0;
+        //TODO: Don't assume fare class is the same for all segments
 
         var stopsFmt = "<span class='stops'>" + (stops?stops + " stop" + (stops>1?"s":""):"nonstop") + "</span>";
 
@@ -336,13 +273,12 @@
 
         var flightSubDetail = $(document.createElement('div'))
           .addClass('extradata')
-          //.attr('href', airline.url)
           .appendTo(flightData)
           .hide();
 
         $.each(flights, function(j, flight) {
           var mileage = dist(flight.origin.airport, flight.destination.airport);
-          //only if flight numbers are different...
+          // only if flight numbers are different...
           totalMileage += mileage;
           var flightExtraData = $(document.createElement('div'))
             .text(flight.marketing_airline + " " + flight.flight_number
@@ -370,18 +306,23 @@
           creditsTo.forEach(function(airline) {
             var earnTable = ffps[airline].earn[firstFlight.marketing_airline.toLowerCase()]
             if (earnTable) {
-              if (!earnTable.revenue && (multiplier = earnTable[fareClass.toLowerCase()])) {
-                var earning = Math.round(multiplier*totalMileage);
+              var earning = 0;
+              if (earnTable.revenue) {
+                // Earn based on base fare
+                earning = Math.round(baseFare * earnTable.mpd);
               } else {
-                console.log(earnTable, baseFare);
-                var earning = Math.round(earnTable.mpd * baseFare);
+                // Earn based on distance
+                var multiplier = earnTable[fareClass.toLowerCase()];
+                earning = Math.round(multiplier*totalMileage);
               }
-              var cashValue = ffps[airline].value*earning;
+              if (earning) {
+                var cashValue = ffps[airline].value*earning;
                 $(document.createElement('div'))
                   .html(earning + " " + iataLookup(airline).name + " " +
                     ffps[airline].currency + " &asymp; "
                     + "<b>$"+Math.round(cashValue) + "</b>")
                   .appendTo(creditInfo);
+              }
             }
           });
         }
