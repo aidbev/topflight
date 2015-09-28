@@ -196,7 +196,7 @@ var airlines = [
     "icao": "sia",
     "name": "Singapore Airlines",
     "alliance": "sa",
-    "credits": ["sq", "ua"],
+    "credits": ["sq", "ua", "vx"],
     "url": "http://www.singaporeair.com"
   },
   {
@@ -706,6 +706,7 @@ var airlines = [
     "icao": "uae",
     "name": "Emirates",
     "ffp": "ek",
+    "credits": ["vx", "as"],
     "url": "http://www.emirates.com"
   },
   {
@@ -934,7 +935,7 @@ var airlines = [
     "icao": "vrd",
     "name": "Virgin America",
     "ffp": "vx",
-    "credits": ["vx", "sq"],
+    "credits": ["vx", "sq", "ek"],
     "url": "http://www.virginamerica.com"
   },
   {
@@ -1192,6 +1193,14 @@ var ffps = {
         e: 0.25,
         "url": "http://www.alaskaair.com/content/mileage-plan/partners/delta.aspx"
       },
+      "ek": {
+        "revenue": false,
+        f: 1.5, a: 1.5, p: 1.5,
+        j: 1.25, c: 1.25, o: 1.25, i: 1.25,
+        y: 1, e: 1, r: 1, w: 1,
+        m: 0.5, b: 0.5, u: 0.5, k: 0.5, q: 0.5, l: 0.5, t: 0.5, v: 0.5, x: 0.5, h: 0.5,
+        "url": "http://www.alaskaair.com/content/mileage-plan/partners/klm.aspx"
+      },
       "kl": {
         "revenue": false,
         j: 1.25, c: 1.25, d: 1.25, i: 1.25, z: 1.25,
@@ -1226,6 +1235,15 @@ var ffps = {
   "ek": {
     "name": "Skywards",
     "currency": "miles",
+    "earn": {
+      "vx": {
+        "revenue": false,
+        d: 2, c: 2, j: 2, z: 1.5, q: 1.5, w: 1.5, y: 1.25,
+        i: 1, m: 1, u: 1, e: 1, h: 1, b: 1, v: 1,
+        n: 0.5, s: 0.5, l: 0.5,
+        "url": "http://www.emirates.com/english/skywards/about/partners/airlines/virgin-america.aspx"
+      },
+    },
     "redeem": ["as", "u2", "jl", "9w", "b6", "jq", "ke", "qf", "s7", "sa", "tp", "vx"],
     "url": "http://www.emirates.com/vn/English/Skywards/about/partners/our-partners.aspx"
   },
@@ -1296,10 +1314,26 @@ var ffps = {
     "currency": "points",
     "value": 0.019,
     "earn": {
+      "ek": {
+        "revenue": false,
+        a: 0.8, f: 0.8,
+        c: 0.6, i: 0.6, j: 0.6, p: 0.6, o: 0.6,
+        e: 0.4, r: 0.4, w: 0.4, y: 0.4,
+        b: 0.2, g: 0.2, h: 0.2, k: 0.2, l: 0.2, m: 0.2, q: 0.2, t: 0.2, u: 0.2, v: 0.2, x: 0.2,
+        "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer/partners/airline-partners/emirates"
+      },
+      "sq": {
+        "revenue": false,
+        r: 0.7, f: 0.6, a: 0.6,
+        z: 0.5, c: 0.5, j: 0.5, u: 0.5, d: 0.5,
+        s: 0.45, t: 0.45, p: 0.45,
+        y: 0.4, b: 0.4, e: 0.4, m: 0.4, h: 0.4, w: 0.4, q: 0.4, n: 0.4,
+        "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer/partners/airline-partners/singapore-airlines"
+      },
       "vx": {
         "revenue": true,
         "mpd": 5
-      },
+      }
     },
     "redeem": ["vs", "va", "ek", "ha", "sq"],
     "url": "https://www.virginamerica.com/cms/elevate-frequent-flyer"
