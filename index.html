@@ -319,8 +319,8 @@
                 var cashValue = ffps[airline].value*earning;
                 $(document.createElement('div'))
                   .html(earning + " " + iataLookup(airline).name + " " +
-                    ffps[airline].currency + " &asymp; "
-                    + "<b>$"+Math.round(cashValue) + "</b>")
+                    ffps[airline].currency + (cashValue ? " &asymp; "
+                    + "<b>$"+Math.round(cashValue) + "</b>" : ""))
                   .appendTo(creditInfo);
               }
             }
@@ -403,7 +403,7 @@
     <p class="desc">Topflight helps you find the best flights every time.
       Search with fare classes and earning amounts exposed.
       <br />
-      Earning calculation currently only supports US-based airlines.
+      Earning calculation currently supports mainly US-based airlines.
     </p>
     <br />
     <table>
